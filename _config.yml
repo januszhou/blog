@@ -4,7 +4,7 @@
 
 # Site
 title: Janus Blog
-subtitle: Janus personal blog
+subtitle:
 description: free to look around
 author: Janus Zhou
 language:
@@ -12,7 +12,7 @@ timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://yoursite.com
+url: http://januszhou.com
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:

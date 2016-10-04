@@ -23,13 +23,6 @@ sudo apt-get -y install php5.6 php5.6-mcrypt php5.6-mbstring php5.6-curl php5.6-
 sudo apt-get install zip unzip git
 ```
 
-###Mysql 5.5 or 5.6
-```
-sudo apt install -y mysql-server-5.5 mysql-client
-sudo apt install -y mysql-server-5.6 mysql-client
-sudo mysql_secure_installation
-```
-
 ###Mysql 5.7
 ```
 wget http://dev.mysql.com/get/mysql-apt-config_0.6.0-1_all.deb
@@ -53,13 +46,13 @@ Follow instruction on [website](https://getcomposer.org/download/), then
 mv composer.phar /usr/local/bin/composer
 ```
 
-##### Apache
+### Apache
 ```
 sudo a2enmod rewrite
 sudo service apache2 restart
 ```
 
-#####Install Laravel dependencies
+###Install Laravel dependencies
 ```
 composer install
 chmod 777 bootstrap/cache
