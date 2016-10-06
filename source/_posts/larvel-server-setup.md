@@ -9,6 +9,7 @@ tags:
 ## Laravel Server Setup
 Environment setup on EC2, Linux ubuntu 14.04 + php 5.6 + mysql 5.7 + apache 2.4
 
+<!-- more -->
 ### PHP
 
 ``` bash
