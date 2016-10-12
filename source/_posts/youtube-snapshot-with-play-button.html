@@ -1,0 +1,149 @@
+---
+title: Youtube video snapshot with play button
+date: 2016-10-11 15:00:00
+tags:
+- Youtube
+- Canvas
+---
+<h2 id="Laravel-Server-Setup">
+    <a href="#Laravel-Server-Setup" class="headerlink" title="Laravel Server Setup"></a>
+    First
+</h2>
+
+<input type="text" placeholder="Enter Youtube video link" id="youtube-link">
+<button id="load-youtube">Load Youtube</button>
+<video controls id="player1">
+    <source src="" type="video/mp4">
+</video>
+<canvas></canvas>
+<div>
+    <input type="radio" name="play-button" value="play1.png" checked><img src="/images/play1.png">
+    <input type="radio" name="play-button" value="play2.png"><img src="/images/play2.png">
+    <input type="radio" name="play-button" value="play3.png"><img src="/images/play3.png">
+    <input type="radio" name="play-button" value="play4.png"><img src="/images/play4.png">
+    <input type="radio" name="play-button" value="play5.png"><img src="/images/play5.png">
+    <input type="radio" name="play-button" value="play6.png"><img src="/images/play6.png">
+</div>
+<button id="snap">Take screenshot</button>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        // Get handles on the video and canvas elements
+        var video = document.querySelector('video');
+        video.autoplay = false;
+        var canvas = document.querySelector('canvas');
+        // Get a handle on the 2d context of the canvas element
+        var context = canvas.getContext('2d');
+        // Define some vars required later
+        var w, h, ratio;
+
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                    results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+
+        /**
+         * Test case 12h34m5s, 12h77m5s, 12h34m77s, 12h34h5s, 12h34m5m, 5s, 34m5s
+         * @param  {[String]} t [description]
+         * @return {[type]}   [description]
+         */
+        function convert(t)
+        {
+            //format could be 1h2m3s
+            var results = t.split(/(h|m|s)/g);
+            var hour = minute = second = 0;
+            if(results.length == 1){
+                return 0;
+            }
+            var foundHour = foundMinute = foundSecond = 0;
+            for(var i = 0; i <= results.length - 2; i++){
+                if(results[i + 1] == 'h'){
+                    hour = parseInt(results[i]);
+                    foundHour++;
+                }
+
+                if(results[i + 1] == 'm'){
+                    minute = parseInt(results[i]);
+                    foundMinute++;
+                }
+
+                if(results[i + 1] == 's'){
+                    second = parseInt(results[i]);
+                    foundSecond++;
+                }
+
+                if(isNaN(hour) || isNaN(minute) || isNaN(second)){
+                    return 0;
+                }
+            }
+
+            if(foundHour > 1 || foundMinute > 1 || foundSecond > 1){
+                return 0;
+            }
+
+            if(minute >= 60 || second >= 60){
+                return 0;
+            }
+
+            return hour * 3600 + minute * 60 + second;
+        }
+
+        $('#load-youtube').on('click', function(){
+            var src = $('#youtube-link').val();
+            var t = getParameterByName('t', src);
+            var jump = 0;
+            if(t){
+                jump = convert(t);
+            }
+            if (src) {
+                var isYoutube = src && src.match(/(?:youtu|youtube)(?:\.com|\.be)\/([\w\W]+)/i);
+                if (isYoutube) {
+                    var id = isYoutube[1].match(/watch\?v=|[\w\W]+/gi);
+                    id = (id.length > 1) ? id.splice(1) : id;
+                    id = id.toString();
+                    var mp4url = "http://www.youtubeinmp4.com/redirect.php?video="; // if need hd, do hd=1
+                    video.src = mp4url + id;
+
+                    if(jump){
+                        video.currentTime = jump;
+                    }
+
+                    // Add a listener to wait for the 'loadedmetadata' state so the video's dimensions can be read
+                    video.addEventListener('loadedmetadata', function() {
+                        // Calculate the ratio of the video's width to height
+                        ratio = video.videoWidth / video.videoHeight;
+                        // Define the required width as 100 pixels smaller than the actual video's width
+                        w = video.videoWidth;
+                        // Calculate the height based on the video's width and the ratio
+                        h = parseInt(w / ratio, 10);
+                        // Set the canvas width and height to the values just calculated
+                        canvas.width = w;
+                        canvas.height = h;
+                    }, false);
+                } else {
+                    alert('Valid youtube link please');
+                }
+            }
+        });
+
+        $('#snap').on('click', function(){
+            // Define the size of the rectangle that will be filled (basically the entire element)
+            context.fillRect(0, 0, w, h);
+            // Grab the image from the video
+            context.drawImage(video, 0, 0, w, h);
+
+            var playImage = new Image();
+            playImage.src = '/images/' + $('input[name=play-button]:checked').val();
+            playImage.onload = function(){
+                var paddingX = parseInt((w - playImage.width) / 2);
+                var paddingY = parseInt((h - playImage.height) / 2);
+                context.drawImage(playImage, paddingX, paddingY);
+            }
+        })
+    })
+</script>
