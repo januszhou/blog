@@ -5,26 +5,77 @@ tags:
 - Youtube
 - Canvas
 ---
-<h2 id="Laravel-Server-Setup">
-    <a href="#Laravel-Server-Setup" class="headerlink" title="Laravel Server Setup"></a>
-    First
+<h2 id="Why-I-created-this-tool">
+    <a href="#Why-I-created-this-tool" class="headerlink" title="Why I created this tool"></a>
+    Why I created this tool
 </h2>
+<p>
+    Recently, one of my clients ask me to put their newest marketing video snapshot with play button into the new email campaign. Obviously, if I'm the designer, I would just use Photoshop to
+</p>
+<a id="more"></a>
 
-<input type="text" placeholder="Enter Youtube video link" id="youtube-link">
-<button id="load-youtube">Load Youtube</button>
-<video controls id="player1">
-    <source src="" type="video/mp4">
-</video>
-<canvas></canvas>
-<div>
-    <input type="radio" name="play-button" value="play1.png" checked><img src="/images/play1.png">
-    <input type="radio" name="play-button" value="play2.png"><img src="/images/play2.png">
-    <input type="radio" name="play-button" value="play3.png"><img src="/images/play3.png">
-    <input type="radio" name="play-button" value="play4.png"><img src="/images/play4.png">
-    <input type="radio" name="play-button" value="play5.png"><img src="/images/play5.png">
-    <input type="radio" name="play-button" value="play6.png"><img src="/images/play6.png">
+<div class="row">
+    <div class="col-sm-8"><input type="text" placeholder="Enter Youtube video link" id="youtube-link" class="form-control"></div>
+    <div class="col-sm-4"><button id="load-youtube" class="btn btn-success">Load Youtube</button></div>
 </div>
-<button id="snap">Take screenshot</button>
+<div class="row">
+    <div class="col-sm-12">
+        <p class="text-center">YouTube Video</p>
+        <div class="embed-responsive embed-responsive-16by9">
+            <video controls id="player1">
+                <source src="" type="video/mp4">
+            </video>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <button id="snap" class="btn btn-success center-block">Take screenshot anytime you want</button>
+        <div class="embed-responsive embed-responsive-16by9">
+            <canvas></canvas>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-2">
+        <input type="radio" name="play-button" id="play1" class="input-hidden" />
+        <label for="play1"><img src="/images/play1.png"/></label>
+    </div>
+
+    <div class="col-sm-2">
+        <input type="radio" name="play-button" id="play2" class="input-hidden" />
+        <label for="play2"><img src="/images/play2.png"/></label>
+    </div>
+
+    <div class="col-sm-2">
+        <input type="radio" name="play-button" id="play3" class="input-hidden" />
+        <label for="play3"><img src="/images/play3.png"/></label>
+    </div>
+
+    <div class="col-sm-2">
+        <input type="radio" name="play-button" id="play4" class="input-hidden" />
+        <label for="play4"><img src="/images/play4.png"/></label>
+    </div>
+
+    <div class="col-sm-2">
+        <input type="radio" name="play-button" id="play5" class="input-hidden" />
+        <label for="play5"><img src="/images/play5.png"/></label>
+    </div>
+
+    <div class="col-sm-2">
+        <input type="radio" name="play-button" id="play6" class="input-hidden" />
+        <label for="play6"><img src="/images/play6.png"/></label>
+    </div>
+</div>
+
+<!--<div>-->
+    <!--<input type="radio" name="play-button" value="play1.png" checked><img src="/images/play1.png">-->
+    <!--<input type="radio" name="play-button" value="play2.png"><img src="/images/play2.png">-->
+    <!--<input type="radio" name="play-button" value="play3.png"><img src="/images/play3.png">-->
+    <!--<input type="radio" name="play-button" value="play4.png"><img src="/images/play4.png">-->
+    <!--<input type="radio" name="play-button" value="play5.png"><img src="/images/play5.png">-->
+    <!--<input type="radio" name="play-button" value="play6.png"><img src="/images/play6.png">-->
+<!--</div>-->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script>
     $(document).ready(function(){
@@ -138,7 +189,7 @@ tags:
             context.drawImage(video, 0, 0, w, h);
 
             var playImage = new Image();
-            playImage.src = '/images/' + $('input[name=play-button]:checked').val();
+            playImage.src = $('input[name=play-button]:checked').parent().find('img').prop('src');
             playImage.onload = function(){
                 var paddingX = parseInt((w - playImage.width) / 2);
                 var paddingY = parseInt((h - playImage.height) / 2);
