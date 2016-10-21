@@ -27,6 +27,6 @@ Short explanation:
 ## Finally
 On production, you could consider to use [forever](https://github.com/foreverjs/forever) to start Hexo daemon, the command I use is
 ```
-forever start --uid blog --append -c 'hexo server -s' ./
+forever start --uid blog --append -c 'hexo server -s -p 80' ./
 ```
 After you get new blog and pull from upstream, run `hexo generate` and your blog should get updated.
