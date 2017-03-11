@@ -6,7 +6,7 @@ tags:
 - MSSQL
 ---
 ## Using MSSQL On PHP7
-Recently, one of my clients needs pull data from one of his new provider, unexpectly, this new provider use MSSQL, however, we upgraded from php5.6 to php7, the old `mssql_connect` function is being removed at php7, read more [here](http://php.net/manual/en/function.mssql-connect.php), we need another solution for it.
+Recently, one of my clients needs pull data from one of his new provider, unexpectedly, this new provider use MSSQL, however, we upgraded from php5.6 to php7, the old `mssql_connect` function is being removed at php7, read more [here](http://php.net/manual/en/function.mssql-connect.php), we need another solution for it.
  <!-- more -->
 
 ### Sybase
