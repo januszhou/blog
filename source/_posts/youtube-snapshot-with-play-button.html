@@ -15,8 +15,9 @@ tags:
 <a id="more"></a>
 
 <div class="row">
-    <div class="col-sm-8"><input type="text" placeholder="Enter Youtube video link" id="youtube-link" class="form-control"></div>
+    <div class="col-sm-6"><input type="text" placeholder="Enter Youtube video link" id="youtube-link" class="form-control"></div>
     <div class="col-sm-4"><button id="load-youtube" class="btn btn-success">Load Youtube</button></div>
+    <div class="col-sm-2" id="loader"></div>
 </div>
 <div class="row">
     <div class="col-sm-12">
@@ -77,6 +78,7 @@ tags:
     <!--<input type="radio" name="play-button" value="play6.png"><img src="/images/play6.png">-->
 <!--</div>-->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="http://spin.js.org/spin.min.js"></script>
 <script>
     $(document).ready(function(){
         // Get handles on the video and canvas elements
@@ -87,6 +89,18 @@ tags:
         var context = canvas.getContext('2d');
         // Define some vars required later
         var w, h, ratio;
+
+        var spinner;
+
+        function spinStart(){
+          var target = document.getElementById('loader');
+          spinner = new Spinner();
+          target.appendChild(spinner.spin().el);
+        }
+
+        function spinStop(){
+          spinner.stop();
+        }
 
         function getParameterByName(name, url) {
             if (!url) url = window.location.href;
@@ -145,6 +159,7 @@ tags:
         }
 
         $('#load-youtube').on('click', function(){
+            spinStart();
             var src = $('#youtube-link').val();
             var t = getParameterByName('t', src);
             var jump = 0;
@@ -175,10 +190,18 @@ tags:
                         // Set the canvas width and height to the values just calculated
                         canvas.width = w;
                         canvas.height = h;
+                        spinStop();
                     }, false);
+
+                    setTimeout(function(){
+                      spinStop();
+                    }, 5000);
                 } else {
                     alert('Valid youtube link please');
+                    spinStop();
                 }
+            } else {
+              spinStop();
             }
         });
 
