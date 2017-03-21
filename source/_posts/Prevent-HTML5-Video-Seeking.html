@@ -1,0 +1,100 @@
+---
+title: Prevent HTML5 Video Seeking
+date: 2017-03-21 00:31:01
+tags:
+---
+
+<h2 id="">
+    <a href="#Why-I-created-this-tool" class="headerlink" title="Why I created this tool"></a>
+    Problem on IOS
+</h2>
+<p>
+    If you don't want user skip part of video, on HTML web page, you probably want disable controls on Video tag. However, on IOS, even you disable it, QuickPlay will still shows progress bar. Following code demonstrate how to do it.
+</p>
+<a id="more"></a>
+
+
+<h3>HTML</h3>
+
+```
+<video id="video" controls autoplay muted>
+  <source src="https://vjs.zencdn.net/v/oceans.mp4" type="video/mp4">
+</video>
+```
+
+<h3>JS</h3>
+
+```
+var video = document.getElementById('video');
+var supposedCurrentTime = 0;
+video.addEventListener('timeupdate', function() {
+  if (!video.seeking) {
+		supposedCurrentTime = video.currentTime;
+  }
+});
+
+// prevent user from seeking
+video.addEventListener('seeking', function() {
+  // guard agains infinite recursion:
+  // user seeks, seeking is fired, currentTime is modified, seeking is fired, current time is modified, ....
+  var delta = video.currentTime - supposedCurrentTime;
+  // delta = Math.abs(delta); // disable seeking previous content if you want
+  if (delta > 0.01) {
+    video.currentTime = supposedCurrentTime;
+  }
+});
+
+video.addEventListener('ended', function() {
+  // reset state in order to allow for rewind
+	supposedCurrentTime = 0;
+});
+```
+
+<div class="row">
+  <div class="col-sm-12">
+    <video id="video" class="center-block" controls autoplay muted>
+      <source src="https://vjs.zencdn.net/v/oceans.mp4" type="video/mp4">
+    </video>
+  </div>
+</div>
+
+<script type="text/javascript">
+  var video = document.getElementById('video');
+  var supposedCurrentTime = 0;
+  var maxProgressTime = 0;
+  video.addEventListener('timeupdate', function() {
+    if (!video.seeking) {
+      if(video.currentTime > maxProgressTime){
+        maxProgressTime = video.currentTime;
+      }
+
+      supposedCurrentTime = video.currentTime;
+    }
+  });
+  // prevent user from seeking
+  video.addEventListener('seeking', function() {
+    // console.log('Current time', video.currentTime );
+    // guard agains infinite recursion:
+    // user seeks, seeking is fired, currentTime is modified, seeking is fired, current time is modified, ....
+    var delta = video.currentTime - supposedCurrentTime;
+    // if (delta > 0.01 || video.currentTime >= maxProgressTime) {
+    //   // console.log("Seeking is disabled");
+    //
+    //   if(video.currentTime >= maxProgressTime){
+    //     video.currentTime = maxProgressTime;
+    //   } else {
+    //     video.currentTime = supposedCurrentTime;
+    //   }
+    // }
+
+    if (delta > 0.01) {
+      // console.log("Seeking is disabled");
+      video.currentTime = supposedCurrentTime;
+    }
+  });
+  // delete the following event handler if rewind is not required
+  video.addEventListener('ended', function() {
+    // reset state in order to allow for rewind
+    // supposedCurrentTime = 0;
+  });
+</script>
