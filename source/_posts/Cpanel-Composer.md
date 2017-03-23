@@ -5,7 +5,9 @@ tags:
 ---
 
 ## Cpanel suhosin issue
-If you use cpanel and suhosin, you might get error say
+If you use cpanel and suhosin, you might get error
+
+<!-- more -->
 
 ```
 The suhosin.executor.include.whitelist setting is incorrect.
