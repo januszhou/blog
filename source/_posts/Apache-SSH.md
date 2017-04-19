@@ -5,6 +5,7 @@ tags:
 - Apache
 - SSH
 - PHP
+categories: Apache
 ---
 
 ## Test SSH under Apache role

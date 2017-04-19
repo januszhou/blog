@@ -2,6 +2,8 @@
 title: Prevent HTML5 Video Seeking
 date: 2017-03-21 00:31:01
 tags:
+ - HTML5
+ - Video
 ---
 
 <h2 id="">
@@ -9,9 +11,10 @@ tags:
     Problem on IOS
 </h2>
 <p>
-    If you don't want user skip part of video, on HTML web page, you probably want disable controls on Video tag. However, on IOS, even you disable it, QuickPlay will still shows progress bar. Following code demonstrate how to do it.
+    If you don't want user skip part of video on HTML web page, you probably want disable controls on Video tag. However, on IOS, even you disable it, QuickPlay will still shows progress bar. Following code demonstrate how to do it.
 </p>
-<a id="more"></a>
+
+<!-- more -->
 
 
 <h3>HTML</h3>
@@ -52,7 +55,7 @@ video.addEventListener('ended', function() {
 
 <div class="row">
   <div class="col-sm-12">
-    <video id="video" class="center-block" controls autoplay muted>
+    <video id="video" class="center-block" controls autoplay muted style="width: 100%;">
       <source src="https://vjs.zencdn.net/v/oceans.mp4" type="video/mp4">
     </video>
   </div>

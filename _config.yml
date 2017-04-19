@@ -7,12 +7,12 @@ title: Janus's Blog
 subtitle: Free to look around
 description: Free to look around
 author: Janus Zhou
-language:
+language: en
 timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://januszhou.com
+url: http://januszhou.tech
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -63,7 +63,14 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: indigo
+theme: next
+
+algolia:
+  applicationID: 'A5L8C16NYD'
+  apiKey: '3b17cdb091c7f3cb4545ef85c4bd441a'
+  adminApiKey: 'c1ff516798e1841c2d8c61246ec0e2d2'
+  indexName: 'blog'
+  chunkSize: 5000
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html

@@ -5,11 +5,12 @@ tags:
 - CasperJS
 - Parallel
 - PhantomJS
+categories: CasperJS
 ---
 ## Trouble on CasperJS
 One of the project we need use [CasperJS](casperjs.org) to navigates dozens URLs, evaluate hundreds lines of javascript in that page then submit the form, sounds crazy right?! <!-- more -->
 
-Unfortunately, even we tried our best to optimize the page loading performance, the whole process is take around one hour. We tried initialize multiple instances of CasperJS and running those at same time, but it still failed. 
+Unfortunately, even we tried our best to optimize the page loading performance, the whole process is take around one hour. We tried initialize multiple instances of CasperJS and running those at same time, but it still failed.
 
 However, we found this [blog](http://g-liu.com/blog/2016/10/tutorial-parallel-web-scraping-with-casperjs-and-gnu-parallel/), by utilizing Parallel, program ables to process CasperJS under multiple threads simultaneously, the following steps similar to that blog except I will list installation parts.
 

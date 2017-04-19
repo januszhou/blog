@@ -4,6 +4,7 @@ date: 2016-10-19 00:59:23
 tags:
 - Hexo
 - Nodemon
+categories: Hexo
 ---
 
 ## Introduce Hexo Auto Restart
