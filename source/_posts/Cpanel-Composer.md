@@ -2,12 +2,12 @@
 title: Cpanel Composer
 date: 2017-03-23 22:06:39
 tags:
+ - cPanel
+categories: cPanel
 ---
 
-## Cpanel suhosin issue
-If you use cpanel and suhosin, you might get error
-
-<!-- more -->
+## cPanel suhosin issue
+If you use cpanel and suhosin, you might get error as
 
 ```
 The suhosin.executor.include.whitelist setting is incorrect.
